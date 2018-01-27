@@ -32,9 +32,7 @@ public class AccountsServiceTest {
 	@Autowired
 	public AccountsService accountsService;
 	private final String Account11 = "Id-130";
-	private final String Account12 = "Id-131";
-
-	
+	private final String Account12 = "Id-131";	
 
 	@Test
 	public void addAccount() throws Exception {
@@ -59,9 +57,9 @@ public class AccountsServiceTest {
 					"Account id " + uniqueId + " already exists!");
 		}
 	}
-
+	
 	@Test
-	public void transferAmount() throws InsufficientFundsException,
+	public void when_transferAmount_from_Acc1ToAcc2_then_Balance_Should_debited_fromAc1_and_credited_toAcc2() throws InsufficientFundsException,
 			InterruptedException, InvalidAccountException,
 			InvalidAmmountException, LockException {	
 		this.accountsService.createAccount(new Account(Account11,

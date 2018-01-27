@@ -45,8 +45,8 @@ public class AccountsServiceConcurrentTestWithCompletableFutureTest {
 			0);
 	public static AtomicInteger transferNegativeTestCounter = new AtomicInteger(
 			0);
-	public final int threadcount =8000;
-	public final long timeout = 5000;
+	public final int threadcount =2000;
+	public final long timeout = 2000;
 	@Before
 	public void setup() throws InvalidAccountException {
 		this.accountsService.createAccount(new Account(Account1,
@@ -57,7 +57,7 @@ public class AccountsServiceConcurrentTestWithCompletableFutureTest {
 	}
 	
 	@Test
-	public void testConcurrentTransactions() {
+	public void whenTransferAmountConcurrentlyToAccToFromAccThenInTearDownAccountSholdHaveSameValue() {
 		IntStream.range(0, threadcount).parallel().forEach(
 				thread -> {
 					CompletableFuture.runAsync(() -> {						
@@ -99,7 +99,7 @@ public class AccountsServiceConcurrentTestWithCompletableFutureTest {
 	}	
 	@After
 	public void tearDown() throws InvalidAccountException, InterruptedException {
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		System.out.println("transferAmountCounter "+transferAmountCounter.get());
 		System.out.println("transferAmountOppositeCounter "+transferAmountOppositeCounter.get());
 		assertEquals(new BigDecimal(8000),

@@ -20,11 +20,11 @@ public class Account implements Comparable<Account> {
 
 	public Lock monitor = new ReentrantLock(true);
 	
-	@NotEmpty(message="{accountAccountIdNotEmpty}")
+	@NotEmpty(message="Account Id cannot be null or empty")
 	private final String accountId;
 
-	@NotNull(message = "{accountBalanceNotNull}")
-	@Min(value = 0, message  = "{accountBalanceMin}")
+	@NotNull(message = "Initial balance can not be null")
+	@Min(value = 0, message  = "Initial balance must be positive")
 	private BigDecimal balance;
 
 	public Account(String accountId) {

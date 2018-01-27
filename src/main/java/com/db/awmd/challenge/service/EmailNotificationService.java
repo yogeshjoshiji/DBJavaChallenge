@@ -15,8 +15,8 @@ public class EmailNotificationService implements NotificationService {
   @Async
   public void notifyAboutTransfer(Account account, String transferDescription) {
     //THIS METHOD SHOULD NOT BE CHANGED - ASSUME YOUR COLLEAGUE WILL IMPLEMENT IT
-    /*log
-      .info("Sending notification to owner of {}: {}", account.getAccountId(), transferDescription);*/
+    log
+      .info("Sending notification to owner of {}: {}", account.getAccountId(), transferDescription);
   }
 
 }

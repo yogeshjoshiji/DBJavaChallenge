@@ -12,7 +12,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.anarsoft.vmlens.concurrent.junit.ConcurrentTestRunner;
@@ -41,7 +40,7 @@ import com.db.awmd.challenge.service.LockException;
 public class AccountServiceParallelConcurrentTest {
 
 	
-
+	
 	private final String notExistingAccount = "Id-000";
 	private final String Account1 = "Id-124";
 	private final String Account2 = "Id-125";
@@ -56,7 +55,8 @@ public class AccountServiceParallelConcurrentTest {
 	private static AtomicInteger transferNegativeTestCounter = new AtomicInteger(
 			0);
 	final int threadcount =2000;
-	final long timout = 2900;
+	final long timout = 2000;
+	
 	private AccountsService accountsService = new AccountsService(
 			new AccountsRepositoryInMemory(),new EmailNotificationService());
 	
@@ -279,7 +279,7 @@ public class AccountServiceParallelConcurrentTest {
 			System.out.println("LockException occured in thread : "+Thread.currentThread().getName());
 			assertThat(e.getMessage())
 					.isEqualTo(
-							"Unable to acquire locks on the accounts with given timeout : " + 0);
+							"Unable to acquire locks on the accounts with given timeout ,Please retry or increase the timeout if contention is too high: " + 0);
 		}
 	}
 

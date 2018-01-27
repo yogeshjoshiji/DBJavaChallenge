@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<!-- Appender to log debug messages fromcom.db.awmd.challenge classes -->
+	<appender name="rollingFileAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- Daily rollover -->
+			<fileNamePattern>log/java_challenge.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<!-- Keep 8 days' worth of history -->
+			<maxHistory>8</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<!-- Appender to log info message from EmailNotificationService classe -->
+	<appender name="emailNotificationService"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- Daily rollover -->
+			<fileNamePattern>log/email_notification_service.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<!-- Keep 8 days' worth of history -->
+			<maxHistory>8</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="asyncAppender" class="ch.qos.logback.classic.AsyncAppender">
+		<queueSize>10000</queueSize>
+		<discardingThreshold>0</discardingThreshold>
+		<appender-ref ref="rollingFileAppender" />
+	</appender>
+
+	<logger name="com.db.awmd.challenge" level="DEBUG">
+		<appender-ref ref="asyncAppender" />
+		<appender-ref ref="consoleAppender" />
+	</logger>
+
+	<logger name="com.db.awmd.challenge.service.EmailNotificationService"
+		level="INFO">
+		<appender-ref ref="emailNotificationService" />
+		<appender-ref ref="asyncAppender" />
+	</logger>
+	<logger name="org.springframework" level="WARN" />
+    <logger name="org.springframework.transaction" level="WARN" />
+	<logger name="org.springframework.web.servlet.mvc" level="WARN" />
+</configuration>                                                                                                                                                                                                                              
+ 

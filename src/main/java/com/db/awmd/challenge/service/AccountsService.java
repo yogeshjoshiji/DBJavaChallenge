@@ -113,14 +113,11 @@ public class AccountsService {
 				}
 			} finally {
 				fromAcctLock.unlock();
-				
 			}
-
 		}
-		LockException LockException=new LockException("Unable to acquire locks on the accounts with given timeout : "+timeout);
+		LockException LockException=new LockException("Unable to acquire locks on the accounts with given timeout ,Please retry or increase the timeout if contention is too high: "+timeout);
 		log.error(LockException.getMessage(), LockException);
 		throw LockException;
-
 	}	
 	/** transferAmount atomically transfer amount between account already holding lock and will rollback in case Withdrawal is successful and Deposit is unsuccessful.
 	 * @param fromAccount
@@ -143,15 +140,13 @@ public class AccountsService {
 		try {
 			if (this.withdrawAmountFromAcoountWithGivenTimeout(fromAccount, amount, timeout, unit)) {
 				withdrawn = true;
-				if (this.depositAmountToAcoountWithGivenTimeOut(toAccount, amount, timeout, unit)) {					
-					//sendNotification(fromAccount, "amount : "+amount.intValue()+" is transffered from account : "+fromAccount.getAccountId()+" to account : "+toAccount.getAccountId());
+				if (this.depositAmountToAcoountWithGivenTimeOut(toAccount, amount, timeout, unit)) {
 					notificationService.notifyAboutTransfer(fromAccount, "amount : "+amount.intValue()+" is transffered from account : "+fromAccount.getAccountId()+" to account : "+toAccount.getAccountId());
-					/*printinfo(amount, fromAccount.getAccountId(),
+					printinfo(amount, fromAccount.getAccountId(),
 							toAccount.getAccountId(), fromAccount.getBalance(),
-							toAccount.getBalance());*/
+							toAccount.getBalance());
 					deposit = true;
-				}
-				
+				}				
 				success = true;
 			}
 		} catch (Exception e) {
@@ -163,10 +158,7 @@ public class AccountsService {
 				}				
 				this.depositAmountToAcoountWithGivenTimeOut(fromAccount, amount, timeout, unit);
 			}
-				
-			
 		}
-		
 		return success;
 	}
 	
@@ -240,17 +232,7 @@ public class AccountsService {
 		}
 		return success;
 	}
-	/** sendNotification is used to send Email notification asynchronously can used to send other notification i.e. SMS notification as well.
-	 * @param account
-	 * @param transferDescription
-	 * @throws InterruptedException
-	 */
-	/*@Async("threadPoolTaskExecutor")
-	//@Async()
-	public void sendNotification(Account account,String transferDescription) throws InterruptedException{			
-		notificationService.notifyAboutTransfer(account, transferDescription);
-		System.out.println("thread is : "+Thread.currentThread().getName());		
-	}*/
+	
 	/** check if amount is not negative else throw InvalidAmmountException with message Amount should not be negative
 	 * @param amount
 	 * @return
@@ -284,10 +266,6 @@ public class AccountsService {
 			log.debug(message, threadName, amount.intValue(),
 					fromAccountID, toAccountID, fromAccountBal.intValue(),
 					toAccountBal.intValue());
-		}
-		/*System.out.printf(message, threadName, amount.intValue(),
-				fromAccountID, toAccountID, fromAccountBal.intValue(),
-				toAccountBal.intValue());*/
+		}		
 	}
-
 }
