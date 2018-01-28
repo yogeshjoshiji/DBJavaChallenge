@@ -55,7 +55,7 @@ public class AccountServiceParallelConcurrentTest {
 	private static AtomicInteger transferNegativeTestCounter = new AtomicInteger(
 			0);
 	final int threadcount =2000;
-	final long timout = 2000;
+	final long timout = 5000;
 	
 	private AccountsService accountsService = new AccountsService(
 			new AccountsRepositoryInMemory(),new EmailNotificationService());

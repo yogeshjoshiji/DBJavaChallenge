@@ -46,7 +46,7 @@ public class AccountsServiceConcurrentTestWithCompletableFutureTest {
 	public static AtomicInteger transferNegativeTestCounter = new AtomicInteger(
 			0);
 	public final int threadcount =2000;
-	public final long timeout = 2000;
+	public final long timeout = 5000;
 	@Before
 	public void setup() throws InvalidAccountException {
 		this.accountsService.createAccount(new Account(Account1,
