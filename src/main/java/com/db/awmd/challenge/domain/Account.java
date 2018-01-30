@@ -1,5 +1,7 @@
 package com.db.awmd.challenge.domain;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.math.BigDecimal;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -17,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Data
 public class Account implements Comparable<Account> {
 
-
+	@ApiModelProperty(hidden = true)
 	public Lock monitor = new ReentrantLock(true);
 	
 	@NotEmpty(message="Account Id cannot be null or empty")
