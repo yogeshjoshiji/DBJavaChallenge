@@ -16,13 +16,8 @@ import com.db.awmd.challenge.config.SwaggerConfig;
 @Import(SwaggerConfig.class)
 public class DevChallengeApplication {
 
-	public static void main(String[] args) {
-		try {
-			SpringApplication.run(DevChallengeApplication.class, args);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void main(String[] args) {		
+			SpringApplication.run(DevChallengeApplication.class, args);		
 	}
 
 	@Bean
